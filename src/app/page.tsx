@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import TaskForm from '@/components/TaskForm';
 import TaskItem from '@/components/TaskItem';
 import CategorySelector from '@/components/CategorySelector';
+import CategoryManager from '@/components/CategoryManager';
 import SortSelector from '@/components/SortSelector';
 import EditModal from '@/components/EditModal';
 import BackupControls from '@/components/BackupControls';
@@ -15,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
+  const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [sort, setSort] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -30,7 +32,7 @@ export default function Home() {
   const handleSaveEdited = (updated: Task) => {
     setTasks(tasks.map((t) => (t.id === updated.id ? updated : t)));
   };
-  
+
   const getCategoryColor = (name: string) => {
     const encoder = new TextEncoder();
     const data = encoder.encode(name);
@@ -48,20 +50,38 @@ export default function Home() {
     ];
     return colors[Math.abs(hash) % colors.length];
   };
-  
-  
-
 
 
 
   useEffect(() => {
     const stored = localStorage.getItem('tasks');
-    if (stored) setTasks(JSON.parse(stored));
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      setTasks(parsed);
+
+      const uniqueCategories = [...new Set((JSON.parse(stored) as Task[]).map((t) => t.category))];
+    }
   }, []);
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
+
+  const handleAddCategory = (name: string) => {
+    if (!categories.includes(name)) {
+      setCategories([...categories, name]);
+    }
+  };
+
+  const handleDeleteCategory = (name: string) => {
+    const inUse = tasks.some(t => t.category === name);
+    if (inUse) {
+      alert('Nie można usunąć kategorii, która jest przypisana do zadania!');
+      return;
+    }
+    setCategories(categories.filter(c => c !== name));
+  };
+
 
   const handleAddTask = (title: string, description: string, category: string, deadline: string) => {
     setTasks([...tasks, { id: uuidv4(), title, description, category, deadline, completed: false }]);
@@ -93,12 +113,18 @@ export default function Home() {
   } else if (statusFilter === 'active') {
     filtered = filtered.filter(task => !task.completed);
   }
-  
-  const categories = Array.from(new Set(tasks.map((t) => t.category)));
+
 
   return (
     <main className="max-w-xl mx-auto p-4">
       <ThemeToggle />
+      
+      <CategoryManager
+        categories={categories}
+        onAdd={handleAddCategory}
+        onDelete={handleDeleteCategory}
+      />
+
       <BackupControls tasks={tasks} onImport={setTasks} />
       <Header />
       <TaskForm onAdd={handleAddTask} />
