@@ -12,7 +12,6 @@ export default function BackupControls({ tasks, onImport }: Props) {
       type: 'application/json',
     });
     const url = URL.createObjectURL(blob);
-
     const a = document.createElement('a');
     a.href = url;
     a.download = 'todo_backup.json';
@@ -41,16 +40,22 @@ export default function BackupControls({ tasks, onImport }: Props) {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2 mb-6">
+    <div className="flex flex-wrap gap-3 mb-6">
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
         onClick={handleExport}
+        className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2 rounded-lg shadow transition focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-800"
       >
         Eksportuj JSON
       </button>
-      <label className="cursor-pointer bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+
+      <label className="relative bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-5 py-2 rounded-lg shadow transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-300 dark:focus:ring-green-800">
         Importuj JSON
-        <input type="file" accept="application/json" onChange={handleImport} className="hidden" />
+        <input
+          type="file"
+          accept="application/json"
+          onChange={handleImport}
+          className="absolute inset-0 opacity-0 cursor-pointer"
+        />
       </label>
     </div>
   );

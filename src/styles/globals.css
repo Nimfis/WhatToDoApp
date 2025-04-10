@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'HandTypeWriter';
+  src: url('/fonts/HandTypeWriter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+body {
+  background-image: url('/girl.png'); 
+  background-size: cover;
+  background-position: center;
+}

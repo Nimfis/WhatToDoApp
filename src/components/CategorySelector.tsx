@@ -9,19 +9,29 @@ type Props = {
 
 export default function CategorySelector({ categories, selected, onSelect, getColor }: Props) {
   return (
-    <div className="flex gap-2 my-4 flex-wrap">
+    <div className="flex flex-wrap gap-2 my-6">
+      {/* Przycisk "Wszystkie" */}
       <button
-        className={`px-3 py-1 rounded ${selected === '' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
         onClick={() => onSelect('')}
+        className={`px-4 py-2 rounded-full font-medium text-sm transition-all 
+          ${selected === '' 
+            ? 'bg-blue-600 text-white' 
+            : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600'
+          }`}
       >
         Wszystkie
       </button>
+
+      {/* Pozostałe kategorie */}
       {categories.map((cat) => (
         <button
           key={cat}
-          className={`flex items-center gap-2 px-3 py-1 rounded ${selected === cat ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-700 dark:text-white'
-            }`}
           onClick={() => onSelect(cat)}
+          className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all
+            ${selected === cat 
+              ? 'bg-blue-600 text-white' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600'
+            }`}
         >
           <span className={`w-2.5 h-2.5 rounded-full ${getColor(cat)}`}></span>
           {cat}

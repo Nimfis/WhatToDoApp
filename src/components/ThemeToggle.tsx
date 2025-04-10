@@ -5,11 +5,10 @@ export default function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme') as 'light' | 'dark';
-    if (saved) {
-      setTheme(saved);
-      document.documentElement.classList.toggle('dark', saved === 'dark');
-    }
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const initial = saved ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(initial);
+    document.documentElement.classList.toggle('dark', initial === 'dark');
   }, []);
 
   const toggleTheme = () => {
@@ -22,9 +21,9 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="mb-4 text-sm px-3 py-1 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded"
+      className="px-4 py-2 rounded-md bg-white-100 dark:bg-gray-700 text-sm font-medium text-gray-800 dark:text-white shadow hover:shadow-md transition"
     >
-      Tryb: {theme === 'light' ? 'Jasny ☀️' : 'Ciemny 🌙'}
+      {theme === 'light' ? '☀️ Jasny' : '🌙 Ciemny'}
     </button>
   );
 }
