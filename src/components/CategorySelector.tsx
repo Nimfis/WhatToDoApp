@@ -10,7 +10,6 @@ type Props = {
 export default function CategorySelector({ categories, selected, onSelect, getColor }: Props) {
   return (
     <div className="flex flex-wrap gap-2 my-6">
-      {/* Przycisk "Wszystkie" */}
       <button
         onClick={() => onSelect('')}
         className={`px-4 py-2 rounded-full font-medium text-sm transition-all 
@@ -22,7 +21,6 @@ export default function CategorySelector({ categories, selected, onSelect, getCo
         Wszystkie
       </button>
 
-      {/* Pozostałe kategorie */}
       {categories.map((cat) => (
         <button
           key={cat}
