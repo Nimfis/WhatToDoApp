@@ -86,7 +86,6 @@ components/
 public/
    ├─ Fonts/              # Czcionka HandTypeWriter (.ttf)
    ├─ Icons/              # Ikony używane w interfejsie (np. What.png)
-   └─ girl.png            # Obraz postaci wyświetlany w lewej kolumnie
 ```
 
 ---
