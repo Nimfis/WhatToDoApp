@@ -25,18 +25,21 @@ export default function TaskForm({ onAdd, categories }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 mb-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"
+      className="flex-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"
     >
+      <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Nowe zadanie</h3>
+
       <input
         type="text"
         placeholder="Tytuł zadania"
-        className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full p-3 mb-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
       <textarea
         placeholder="Opis zadania"
-        className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full p-3 mb-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
@@ -44,19 +47,17 @@ export default function TaskForm({ onAdd, categories }: Props) {
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full p-3 mb-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
       >
         <option value="">Wybierz kategorię</option>
         {categories.map((cat) => (
-          <option key={cat} value={cat}>
-            {cat}
-          </option>
+          <option key={cat} value={cat}>{cat}</option>
         ))}
       </select>
 
       <input
         type="date"
-        className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full p-3 mb-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"
         value={deadline}
         onChange={(e) => setDeadline(e.target.value)}
       />
@@ -70,4 +71,3 @@ export default function TaskForm({ onAdd, categories }: Props) {
     </form>
   );
 }
-

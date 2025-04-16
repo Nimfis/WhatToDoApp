@@ -8,7 +8,7 @@ type Props = {
 export default function SortSelector({ sort, onSortChange }: Props) {
   return (
     <div className="flex items-center gap-3 mb-6 text-sm">
-      <label className="font-medium text-gray-800 dark:text-white">Sortuj:</label>
+      <label className="font-medium text-white">Sortuj:</label>
       <select
         value={sort}
         onChange={(e) => onSortChange(e.target.value)}

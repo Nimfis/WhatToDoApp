@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Czcionka */
 @font-face {
   font-family: 'HandTypeWriter';
   src: url('/fonts/HandTypeWriter.ttf') format('truetype');
@@ -9,9 +10,32 @@
   font-style: normal;
 }
 
-
+/* Tło ogólne (jasny tryb) */
 body {
-  background-image: url('/girl.png'); 
+  background-image: url('/floral.png');
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  color: #000;
+}
+
+/* Efekt przydymienia */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+
+/* Ciemny motyw */
+.dark body {
+  background-image: url('/dark.png');
+  color: #fff;
+}
+
+.dark body::before {
+  background: rgba(255, 255, 255, 0.1);
 }
